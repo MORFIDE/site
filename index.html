@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МБОУ Большеключинская ООШ №4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #3E2723;
+            --primary: #5D4037;
+            --primary-light: #8D6E63;
+            --accent: #E8A87C;
+            --background: #FDFBF7;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C2C2C;
+            --text-light: #6B6B6B;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow: 0 8px 40px rgba(62, 39, 35, 0.12);
+            --shadow-hover: 0 16px 60px rgba(62, 39, 35, 0.20);
+            --radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            --gradient-accent: linear-gradient(135deg, var(--accent), #F4C4A0);
+            --gradient-hero: linear-gradient(180deg, #F5EDE6 0%, var(--background) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+        }
+
+        .bg-shapes .shape-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px;
+            background: var(--primary);
+        }
+
+        .bg-shapes .shape-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+            background: var(--accent);
+        }
+
+        .bg-shapes .shape-3 {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary-light);
+            opacity: 0.04;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.25);
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        nav ul li a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--primary-dark);
+            cursor: pointer;
+            padding: 4px 12px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: var(--gradient-hero);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content .badge {
+            display: inline-block;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 24px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .hero-content h1 .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 480px;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(62, 39, 35, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 35px rgba(62, 39, 35, 0.35);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .hero-image-wrapper .main-image {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 8px solid white;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            aspect-ratio: 4/3;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image-wrapper .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-wrapper .floating-card {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .floating-card .number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .floating-card .label {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-bottom: 48px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 28px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card .number {
+            font-size: 40px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-card .label {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .mission-card {
+            margin-top: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 32px 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .mission-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .mission-card p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .program-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 32px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .program-card .icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .program-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .program-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .advantage-item {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .advantage-item .icon {
+            font-size: 44px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .advantage-item .number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: block;
+        }
+
+        .advantage-item .label {
+            font-size: 15px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .team-card {
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 32px 20px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .team-card .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            font-weight: 700;
+            overflow: hidden;
+        }
+
+        .team-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h4 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .team-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .review-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 28px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .review-card .stars {
+            color: #F4A460;
+            font-size: 18px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .review-card blockquote {
+            font-size: 15px;
+            color: var(--text-dark);
+            font-style: italic;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .review-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-card .author .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .review-card .author .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .review-card .author .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--primary-dark);
+        }
+
+        .review-card .author .role {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 48px;
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-info h3 {
+            font-size: 22px;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+        }
+
+        .contact-info .item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .contact-info .item .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .contact-info .item .text {
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .contact-info .item .text strong {
+            display: block;
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .contact-form h3 {
+            font-size: 22px;
+            color: var(--primary-dark);
+            margin-bottom: 24px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(62, 39, 35, 0.10);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(93, 64, 55, 0.10);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 380px;
+            border: 0;
+            display: block;
+        }
+
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 48px 0 32px;
+            margin-top: 20px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .footer-social a img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll.delay-1 { transition-delay: 0.1s; }
+        .animate-on-scroll.delay-2 { transition-delay: 0.2s; }
+        .animate-on-scroll.delay-3 { transition-delay: 0.3s; }
+        .animate-on-scroll.delay-4 { transition-delay: 0.4s; }
+
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 40px; }
+            .programs-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 16px 0;
+                gap: 4px;
+            }
+
+            nav ul.open {
+                display: flex;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 10px 20px;
+                text-align: center;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-content h1 { font-size: 34px; }
+            .hero-image-wrapper .floating-card {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 16px;
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+
+            .stat-card .number { font-size: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 28px; }
+            .hero { padding: 100px 0 60px; }
+            .about-stats { grid-template-columns: 1fr; }
+            .programs-grid { grid-template-columns: 1fr; }
+            .advantages-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 16px; }
+            section { padding: 50px 0; }
+            .contact-wrapper { padding: 16px; }
+            .logo-text { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header id="header">
+        <div class="container header-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="gerb.png" alt="Герб школы">
+                </div>
+                <div class="logo-text">МБОУ <span>ООШ №4</span></div>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#hero" class="active">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#programs">Программы</a></li>
+                    <li><a href="#team">Учителя</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="container hero-grid">
+            <div class="hero-content animate-on-scroll">
+                <span class="badge"><i class="fas fa-graduation-cap" style="margin-right:8px;"></i>Образование с душой</span>
+                <h1>Добро пожаловать в <br><span class="highlight">школу №4</span></h1>
+                <p>Место, где закладывается фундамент знаний, раскрываются таланты и воспитывается личность. Современное образование в атмосфере добра и уважения.</p>
+                <div class="hero-buttons">
+                    <a href="#contacts" class="btn btn-primary">
+                        <i class="fas fa-paper-plane" style="margin-right:10px;"></i>Связаться
+                    </a>
+                    <a href="#programs" class="btn btn-secondary">
+                        <i class="fas fa-arrow-right" style="margin-right:10px;"></i>Программы
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image animate-on-scroll delay-2">
+                <div class="hero-image-wrapper">
+                    <div class="main-image">
+                        <img src="bkschool.jpg" alt="Здание школы">
+                    </div>
+                    <div class="floating-card">
+                        <span class="number">87</span>
+                        <span class="label">учеников<br>в этом году</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <span class="section-label animate-on-scroll">О школе</span>
+            <h2 class="section-title animate-on-scroll">Наша философия</h2>
+            <p class="section-subtitle animate-on-scroll">Основана в 1962 году. В 2006 году переехала в новое здание. Мы гордимся нашей историей и традициями.</p>
+
+            <div class="about-grid">
+                <div class="about-text animate-on-scroll">
+                    <p><strong>МБОУ Большеключинская ООШ №4</strong> — это современная сельская школа, которая является центром образования и культуры для всего села. Мы даем качественное начальное, основное общее и коррекционное образование.</p>
+                    <p>Наш педагогический коллектив — это <strong>18 профессионалов</strong>, любящих свое дело. Вместе мы создаем атмосферу добра, уважения и взаимопомощи, где каждый ребенок может раскрыть свои таланты.</p>
+                    <p>В 2024 году наши выпускники успешно поступили в ведущие техникумы и колледжи Красноярского края.</p>
+                </div>
+                <div class="about-stats animate-on-scroll delay-2">
+                    <div class="stat-card">
+                        <span class="number">87</span>
+                        <span class="label">Учеников</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">18</span>
+                        <span class="label">Учителей</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">3</span>
+                        <span class="label">Почётных грамот</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mission-card animate-on-scroll delay-3">
+                <h3><i class="fas fa-bullseye" style="color:var(--primary); margin-right:12px;"></i>Наша миссия</h3>
+                <p>Создать условия для развития ценностных отношений личности к окружающему миру и к себе на основе национальных традиций и культуры.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" style="background: rgba(245, 237, 230, 0.30);">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Образование</span>
+            <h2 class="section-title animate-on-scroll">Наши программы</h2>
+            <p class="section-subtitle animate-on-scroll">Развиваем каждого ученика, учитывая его возраст и индивидуальные особенности.</p>
+
+            <div class="programs-grid">
+                <div class="program-card animate-on-scroll">
+                    <span class="icon"><i class="fas fa-child"></i></span>
+                    <h4>Начальная школа</h4>
+                    <p>1-4 классы. Первые шаги в мире знаний, развитие любознательности и дружбы.</p>
+                </div>
+                <div class="program-card animate-on-scroll delay-1">
+                    <span class="icon"><i class="fas fa-user-graduate"></i></span>
+                    <h4>Основная школа</h4>
+                    <p>5-9 классы. Углублённое изучение предметов, подготовка к выбору профессии.</p>
+                </div>
+                <div class="program-card animate-on-scroll delay-2">
+                    <span class="icon"><i class="fas fa-flask"></i></span>
+                    <h4>Коррекционное образование</h4>
+                    <p>Индивидуальный подход и поддержка для детей с особыми образовательными потребностями.</p>
+                </div>
+                <div class="program-card animate-on-scroll delay-3">
+                    <span class="icon"><i class="fas fa-paint-brush"></i></span>
+                    <h4>Доп. образование</h4>
+                    <p>Кружки, секции и творческие мастерские для развития талантов и хобби.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Почему мы</span>
+            <h2 class="section-title animate-on-scroll">Наши преимущества</h2>
+            <p class="section-subtitle animate-on-scroll">Мы создаём среду, где каждый ученик чувствует себя уверенно и может достичь успеха.</p>
+
+            <div class="advantages-grid">
+                <div class="advantage-item animate-on-scroll">
+                    <span class="icon"><i class="fas fa-calendar-check"></i></span>
+                    <span class="number">60+</span>
+                    <span class="label">лет истории и традиций</span>
+                </div>
+                <div class="advantage-item animate-on-scroll delay-1">
+                    <span class="icon"><i class="fas fa-chart-line"></i></span>
+                    <span class="number">95%</span>
+                    <span class="label">выпускников поступают в вузы и колледжи</span>
+                </div>
+                <div class="advantage-item animate-on-scroll delay-2">
+                    <span class="icon"><i class="fas fa-laptop-house"></i></span>
+                    <span class="number">100%</span>
+                    <span class="label">современное оборудование в классах</span>
+                </div>
+                <div class="advantage-item animate-on-scroll delay-3">
+                    <span class="icon"><i class="fas fa-heart"></i></span>
+                    <span class="number">0</span>
+                    <span class="label">буллинга — мы за доброту и уважение</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" style="background: rgba(245, 237, 230, 0.30);">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Команда</span>
+            <h2 class="section-title animate-on-scroll">Наши учителя</h2>
+            <p class="section-subtitle animate-on-scroll">Профессионалы, которые любят детей и своё дело. Каждый из них — пример для подражания.</p>
+
+            <div class="team-grid">
+                <div class="team-card animate-on-scroll">
+                    <div class="avatar">И</div>
+                    <h4>Иванова И. П.</h4>
+                    <p>Директор, учитель русского языка</p>
+                </div>
+                <div class="team-card animate-on-scroll delay-1">
+                    <div class="avatar">П</div>
+                    <h4>Петрова М. С.</h4>
+                    <p>Завуч, учитель математики</p>
+                </div>
+                <div class="team-card animate-on-scroll delay-2">
+                    <div class="avatar">С</div>
+                    <h4>Сидоров А. В.</h4>
+                    <p>Учитель физической культуры</p>
+                </div>
+                <div class="team-card animate-on-scroll delay-3">
+                    <div class="avatar">К</div>
+                    <h4>Кузнецова Е. А.</h4>
+                    <p>Учитель начальных классов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Отзывы</span>
+            <h2 class="section-title animate-on-scroll">Что говорят родители</h2>
+            <p class="section-subtitle animate-on-scroll">Мнение тех, кому мы доверяем самое дорогое — наших учеников.</p>
+
+            <div class="reviews-grid">
+                <div class="review-card animate-on-scroll">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Школа дала моему сыну не только знания, но и уверенность в себе. Спасибо учителям за их терпение и любовь!"</blockquote>
+                    <div class="author">
+                        <div class="avatar">Е</div>
+                        <div>
+                            <div class="name">Елена Петрова</div>
+                            <div class="role">Мама ученика 7 класса</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card animate-on-scroll delay-1">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Дочь с удовольствием ходит в школу каждый день. Особенно нравится творческие кружки и дружеская атмосфера."</blockquote>
+                    <div class="author">
+                        <div class="avatar">А</div>
+                        <div>
+                            <div class="name">Алексей Смирнов</div>
+                            <div class="role">Папа ученицы 3 класса</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card animate-on-scroll delay-2">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Благодаря школе сын поступил в техникум на бюджет. Огромная благодарность педагогическому коллективу!"</blockquote>
+                    <div class="author">
+                        <div class="avatar">О</div>
+                        <div>
+                            <div class="name">Ольга Васильева</div>
+                            <div class="role">Мама выпускника 2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" style="background: rgba(245, 237, 230, 0.30);">
+        <div class="container">
+            <span class="section-label animate-on-scroll">Контакты</span>
+            <h2 class="section-title animate-on-scroll">Свяжитесь с нами</h2>
+            <p class="section-subtitle animate-on-scroll">Мы всегда рады ответить на ваши вопросы. Приходите или напишите нам!</p>
+
+            <div class="contact-wrapper animate-on-scroll">
+                <div class="contact-info">
+                    <h3><i class="fas fa-address-card" style="color:var(--primary); margin-right:12px;"></i>Контактные данные</h3>
+                    <div class="item">
+                        <div class="icon"><i class="fas fa-map-pin"></i></div>
+                        <div class="text">
+                            <strong>Адрес</strong>
+                            663960, Красноярский край, Рыбинский р-н, с. Большие Ключи, ул. Красновых, 77
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="icon"><i class="fas fa-phone"></i></div>
+                        <div class="text">
+                            <strong>Телефон</strong>
+                            <a href="tel:+73916568225" style="color:var(--primary); font-weight:600;">+7 (39165) 68-2-25</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div class="text">
+                            <strong>Email</strong>
+                            <a href="mailto:bbkk4@yandex.ru" style="color:var(--primary); font-weight:600;">bbkk4@yandex.ru</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="icon"><i class="fas fa-clock"></i></div>
+                        <div class="text">
+                            <strong>Режим работы</strong>
+                            Пн–Пт 08:15 – 18:00<br>
+                            Приём граждан: Пн–Пт 08:15 – 15:00
+                        </div>
+                    </div>
+                    <div style="margin-top:24px; display:flex; gap:16px; flex-wrap:wrap;">
+                        <a href="https://vk.com/club193921581" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:10px; padding:12px 28px;">
+                            <i class="fab fa-vk"></i> Мы во ВКонтакте
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3><i class="fas fa-pencil-alt" style="color:var(--primary); margin-right:12px;"></i>Написать нам</h3>
+                    <form id="contactForm">
+                        <input type="text" placeholder="Ваше имя" required>
+                        <input type="email" placeholder="Ваш Email" required>
+                        <input type="tel" placeholder="Ваш телефон">
+                        <textarea placeholder="Ваше сообщение..." required></textarea>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane" style="margin-right:10px;"></i>Отправить
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-container animate-on-scroll delay-2">
+    <iframe 
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=55.950126,95.179413&zoom=15" 
+        allowfullscreen loading="lazy">
+    </iframe>
+</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="logo" style="gap:10px;">
+                    <div class="logo-icon" style="width:40px;height:40px;font-size:16px;">
+                        <img src="gerb.png" alt="Герб школы">
+                    </div>
+                    <div class="logo-text" style="color:white;">МБОУ <span style="color:var(--accent);">ООШ №4</span></div>
+                </div>
+                <div class="footer-links">
+                    <a href="#hero">Главная</a>
+                    <a href="#about">О нас</a>
+                    <a href="#programs">Программы</a>
+                    <a href="#team">Учителя</a>
+                    <a href="#contacts">Контакты</a>
+                    <a href="https://sh-bolsheklyuchinskaya-klyuchi-r04.gosweb.gosuslugi.ru/policy/" target="_blank">Политика</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://vk.com/club193921581" target="_blank" aria-label="VK">
+                        <img src="vk.png" alt="VK">
+                    </a>
+                    <a href="mailto:bbkk4@yandex.ru" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 МБОУ Большеключинская ООШ №4. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            animateElements.forEach(el => observer.observe(el));
+
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('open');
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-times');
+                    }
+                });
+
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('open');
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                    });
+                });
+            }
+
+            const navLinks = document.querySelectorAll('nav ul li a');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 120;
+                    if (window.scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+
+                const header = document.getElementById('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const btn = this.querySelector('button[type="submit"]');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:10px;"></i>Отправка...';
+                    btn.disabled = true;
+
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-check" style="margin-right:10px;"></i>Отправлено!';
+                        btn.style.background = '#4CAF50';
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.style.background = '';
+                            btn.disabled = false;
+                            this.reset();
+                        }, 3000);
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
